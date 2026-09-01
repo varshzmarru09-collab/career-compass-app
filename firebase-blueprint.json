@@ -1,0 +1,133 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "Registered system user profile and authentication role",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user ID" },
+        "name": { "type": "string", "description": "Full name" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "role": { "type": "string", "enum": ["student", "trainer", "government"], "description": "Access role" },
+        "avatarUrl": { "type": "string", "description": "Optional avatar URL" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Account creation timestamp" }
+      },
+      "required": ["id", "name", "email", "role", "createdAt"]
+    },
+    "studentProfiles": {
+      "title": "Student Profile",
+      "description": "Academic details, skills, target role, and career aspirations for a student",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "branch": { "type": "string" },
+        "year": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "careerInterests": { "type": "array", "items": { "type": "string" } },
+        "sector": { "type": "string" },
+        "desiredRole": { "type": "string" },
+        "company": { "type": "string" },
+        "educationLevel": { "type": "string" },
+        "experienceLevel": { "type": "string" },
+        "bio": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "sector", "desiredRole"]
+    },
+    "skillGapResults": {
+      "title": "Skill Gap Result",
+      "description": "Calculated skill match analysis and missing competency breakdown",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "selectedCompany": { "type": "string" },
+        "selectedRole": { "type": "string" },
+        "currentSkills": { "type": "array", "items": { "type": "string" } },
+        "missingSkills": { "type": "array", "items": { "type": "string" } },
+        "recommendedSkills": { "type": "array", "items": { "type": "string" } },
+        "matchPercentage": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "selectedRole", "currentSkills", "missingSkills", "createdAt"]
+    },
+    "courses": {
+      "title": "Course",
+      "description": "Skill building course curriculum and lesson units",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "courseName": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "duration": { "type": "string" },
+        "skillsCovered": { "type": "array", "items": { "type": "string" } },
+        "skillId": { "type": "string" },
+        "skillName": { "type": "string" },
+        "sector": { "type": "string" },
+        "difficulty": { "type": "string" },
+        "provider": { "type": "string" },
+        "rating": { "type": "number" },
+        "enrolledCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "description", "duration"]
+    },
+    "courseEnrollments": {
+      "title": "Course Enrollment",
+      "description": "Tracks student progress, status, and completion timestamps for enrolled courses",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "courseId": { "type": "string" },
+        "progress": { "type": "number" },
+        "status": { "type": "string", "enum": ["Recommended", "In Progress", "Completed"] },
+        "enrolledAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "courseId", "progress", "status", "enrolledAt"]
+    },
+    "trainers": {
+      "title": "Trainer",
+      "description": "Domain expert instructor profile and specialization",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "specialization": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "specialization", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile records"
+    },
+    "/studentProfiles/{profileId}": {
+      "schema": "studentProfiles",
+      "description": "Student career & educational profiles"
+    },
+    "/skillGapResults/{resultId}": {
+      "schema": "skillGapResults",
+      "description": "Historical and latest skill gap analysis records"
+    },
+    "/courses/{courseId}": {
+      "schema": "courses",
+      "description": "Training courses catalog"
+    },
+    "/courseEnrollments/{enrollmentId}": {
+      "schema": "courseEnrollments",
+      "description": "Student course enrollments and progress"
+    },
+    "/trainers/{trainerId}": {
+      "schema": "trainers",
+      "description": "Trainer profiles and specializations"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Career Compass",
+  "description": "Student career and employment platform guiding students from current skills to suitable jobs with skill-gap analysis, interactive roadmaps, curated courses, job matching, and application tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
